@@ -433,12 +433,12 @@ MonoBehaviour:
     TrackerSlot: 0
     TrackerType: 0
     TrackerSave: 0
-  - Name: Boxes
+  - Name: Squares
     DisplayOnEndGameScoreboard: 1
     Source: 10
     ValueType: 0
     RoundAggregateType: 1
-    TrackerSlot: 1
+    TrackerSlot: 0
     TrackerType: 0
     TrackerSave: 0
   - Name: Time Alive
@@ -447,6 +447,14 @@ MonoBehaviour:
     ValueType: 3
     RoundAggregateType: 2
     TrackerSlot: 0
+    TrackerType: 0
+    TrackerSave: 0
+  - Name: Squares Broken
+    DisplayOnEndGameScoreboard: 0
+    Source: 10
+    ValueType: 0
+    RoundAggregateType: 1
+    TrackerSlot: 1
     TrackerType: 0
     TrackerSave: 0
 --- !u!1 &91609239
