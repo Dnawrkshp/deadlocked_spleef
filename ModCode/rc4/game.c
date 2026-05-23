@@ -66,6 +66,21 @@ int spleefResolveSpleefLayers(void)
 }
 
 //--------------------------------------------------------------------------
+void spleefGetResurrectPoint(Player* player, VECTOR outPos, VECTOR outRot, int firstRes)
+{
+  GameSettings* gameSettings = gameGetSettings();
+  float idx = player->PlayerId / (float)gameSettings->PlayerCount;
+  float theta = MATH_TAU * idx;
+
+  vector_copy(outPos, &spawnPointGet(PLAYER_SPAWN_CUBOID_IDX)->M0[12]);
+  outPos[0] += (cosf(theta) * SPLEEF_BOARD_SPAWN_RADIUS);
+  outPos[1] += (sinf(theta) * SPLEEF_BOARD_SPAWN_RADIUS);
+
+  vector_write(outRot, 0);
+  outRot[2] = clampAngle(theta - MATH_PI);
+}
+
+//--------------------------------------------------------------------------
 void onDestroySpleefMobyMessageReceived(int fromClientId, struct DestroySpleefMobyMessage *msg)
 {
   Moby* moby = State.SpleefMobys[msg->MobyIdx];
@@ -212,20 +227,27 @@ void modCleanup(void)
 }
 
 //--------------------------------------------------------------------------
+void modStart(void)
+{
+}
+
+//--------------------------------------------------------------------------
 void modInit(void)
 {
   spleefResetRound();
-  
+
   // set target points
   cgmScoreSetCustomTarget(spleefResolveCParamPointsToWin());
+}
+
+//--------------------------------------------------------------------------
+void modLoad(void)
+{
+  // hook spawn
+  HOOK_JAL(0x00610724, &spleefGetResurrectPoint);
+  HOOK_JAL(0x005e2d44, &spleefGetResurrectPoint);
 
   // update timelimit
-  GameData* gameData = gameGetData();
   GameOptions* gameOptions = gameGetOptions();
-  int timelimit = spleefResolveCParamTimelimit();
-  gameOptions->GameFlags.MultiplayerGameFlags.Timelimit = timelimit;
-  if (timelimit <= 0)
-    gameData->TimeEnd = -1;
-  else
-    gameData->TimeEnd = timelimit * TIME_MINUTE;
+  gameOptions->GameFlags.MultiplayerGameFlags.Timelimit = spleefResolveCParamTimelimit();
 }
