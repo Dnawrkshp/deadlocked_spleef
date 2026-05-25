@@ -1206,6 +1206,7 @@ MonoBehaviour:
   RoundObjectiveStatName: Time Alive
   RoundObjectiveTarget: 0
   DisplayRoundTargetInScoreboardHud: 0
+  ShowLiveAggregateScore: 0
   ResetRoundFunctionName: spleefResetRound
   RoundStartedFunctionName: 
   RoundCompletedFunctionName: 
@@ -1386,7 +1387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17a2ccf71e902840ae1beca4d34117e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapVersion: 4
+  MapVersion: 5
   MapName: Spleef
   MapAuthor: Dnawrkshp
   MapDescription: 'Welcome back, meatbags! Vox Industries presents: SPLEEF! Blast
